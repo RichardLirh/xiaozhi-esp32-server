@@ -1,10 +1,10 @@
 # Docker安装全模块
 
-version: '3'
+version: "3"
 services:
   # Server模块
   xiaozhi-esp32-server:
-    image: ghcr.nju.edu.cn/xinnan-tech/xiaozhi-esp32-server:server_latest
+    image: ghcr.io/xinnan-tech/xiaozhi-esp32-server:server_latest
     container_name: xiaozhi-esp32-server
     depends_on:
       - xiaozhi-esp32-server-db
@@ -14,9 +14,9 @@ services:
       - default
     ports:
       # ws服务端
-      - "8000:8000"
+      - "18000:8000"
       # http服务的端口，用于视觉分析接口
-      - "8003:8003"
+      - "18003:8003"
     security_opt:
       - seccomp:unconfined
     environment:
@@ -41,7 +41,7 @@ services:
         condition: service_healthy
     ports:
       # 智控台
-      - "8002:8002"
+      - "18002:8002"
     environment:
       - TZ=Asia/Shanghai
       - SPRING_DATASOURCE_DRUID_URL=jdbc:mysql://xiaozhi-esp32-server-db:3306/xiaozhi_esp32_server?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&connectTimeout=30000&socketTimeout=30000&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
@@ -58,7 +58,7 @@ services:
     image: mysql:latest
     container_name: xiaozhi-esp32-server-db
     healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 45s
       interval: 10s
       retries: 10

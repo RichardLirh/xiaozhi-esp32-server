@@ -35,7 +35,7 @@ server:
     # 如果属于白名单内的设备，不校验token，直接放行
     allowed_devices:
       - "11:22:33:44:55:66"
- # MQTT网关配置，用于通过OTA下发到设备，根据mqtt_gateway的.env文件配置，格式为host:port
+  # MQTT网关配置，用于通过OTA下发到设备，根据mqtt_gateway的.env文件配置，格式为host:port
   mqtt_gateway: null
   # MQTT签名密钥，用于生成MQTT连接密码，根据mqtt_gateway的.env文件配置
   mqtt_signature_key: null
@@ -71,7 +71,6 @@ enable_stop_tts_notify: false
 stop_tts_notify_voice: "config/assets/tts_notify.mp3"
 # 是否启用WebSocket心跳保活机制
 enable_websocket_ping: false
-
 
 # TTS音频发送延迟配置
 # tts_audio_send_delay: 控制音频包发送间隔
@@ -154,7 +153,7 @@ plugins:
     base_url: http://homeassistant.local:8123
     api_key: 你的home assistant api访问令牌
   play_music:
-    music_dir: "./music"  # 音乐文件存放路径，将从该目录及子目录下搜索音乐文件
+    music_dir: "./music" # 音乐文件存放路径，将从该目录及子目录下搜索音乐文件
     music_ext: # 音乐文件类型，p3格式效率最高
       - ".mp3"
       - ".wav"
@@ -172,7 +171,7 @@ plugins:
 # 声纹识别配置
 voiceprint:
   # 声纹接口地址
-  url: 
+  url:
   # 说话人配置：speaker_id,名称,描述
   speakers:
     - "test1,张三,张三是一个程序员"
@@ -297,14 +296,14 @@ Memory:
     # 通义千问: https://bailian.console.aliyun.com/?apiKey=1#/api-key
     # 智谱AI(免费): https://bigmodel.cn/usercenter/proj-mgmt/apikeys
     llm:
-      provider: openai  # 可选: qwen, openai, zhipu 等
+      provider: openai # 可选: qwen, openai, zhipu 等
       config:
         api_key: 你的LLM API密钥
         model: qwen-plus
         # openai_base_url: https://api.openai.com/v1  # 可选，自定义服务地址
     # ========== Embedding 配置 ==========
     embedder:
-      provider: openai  # 可选: qwen, openai 等
+      provider: openai # 可选: qwen, openai 等
       config:
         api_key: 你的嵌入模型API密钥
         model: text-embedding-v4
@@ -316,7 +315,7 @@ Memory:
     # 用户画像功能支持: oceanbase、seekdb、sqlite
     vector_store:
       provider: sqlite
-      config: {}  # SQLite 无需额外配置
+      config: {} # SQLite 无需额外配置
       # OceanBase 配置示例:
       # provider: oceanbase
       # config:
@@ -512,17 +511,17 @@ ASR:
     model_name: qwen3-asr-flash
     output_dir: tmp/
     # ASR选项配置
-    enable_lid: true  # 自动语种检测
-    enable_itn: true  # 逆文本归一化
+    enable_lid: true # 自动语种检测
+    enable_itn: true # 逆文本归一化
     #language: "zh"  # 语种，支持zh、en、ja、ko等
-    context: ""  # 上下文信息，用于提高识别准确率，不超过10000 Token
+    context: "" # 上下文信息，用于提高识别准确率，不超过10000 Token
   XunfeiStreamASR:
     # 讯飞流式语音识别服务
     # 需要先在讯飞开放平台创建应用，获取以下认证信息
     # 讯飞开放平台地址：https://www.xfyun.cn/
     # 创建应用后，在"我的应用"中获取：
     # - APPID
-    # - APISecret  
+    # - APISecret
     # - APIKey
     type: xunfei_stream
     # 必填参数 - 讯飞开放平台应用信息
@@ -549,25 +548,25 @@ ASR:
     model: paraformer-realtime-v2
     # 音频格式和采样率
     format: pcm
-    sample_rate: 16000  # v2支持任意采样率，v1仅支持16000，8k版本仅支持8000
+    sample_rate: 16000 # v2支持任意采样率，v1仅支持16000，8k版本仅支持8000
     # 可选参数
-    disfluency_removal_enabled: false  # 是否过滤语气词(如"嗯"、"啊"等)
-    semantic_punctuation_enabled: false  # 语义断句(true:会议场景,准确;false:VAD断句,交互场景,低延迟)
-    max_sentence_silence: 200  # VAD断句静音时长阈值(ms)，范围200-6000，仅VAD断句时生效
-    multi_threshold_mode_enabled: false  # 防止VAD断句切割过长，仅VAD断句时生效
-    punctuation_prediction_enabled: true  # 是否自动添加标点符号
-    inverse_text_normalization_enabled: true  # 是否开启ITN(中文数字转阿拉伯数字)
+    disfluency_removal_enabled: false # 是否过滤语气词(如"嗯"、"啊"等)
+    semantic_punctuation_enabled: false # 语义断句(true:会议场景,准确;false:VAD断句,交互场景,低延迟)
+    max_sentence_silence: 200 # VAD断句静音时长阈值(ms)，范围200-6000，仅VAD断句时生效
+    multi_threshold_mode_enabled: false # 防止VAD断句切割过长，仅VAD断句时生效
+    punctuation_prediction_enabled: true # 是否自动添加标点符号
+    inverse_text_normalization_enabled: true # 是否开启ITN(中文数字转阿拉伯数字)
     # 热词定制文档地址：https://help.aliyun.com/zh/model-studio/custom-hot-words?
     # vocabulary_id: vocab-xxx-24ee19fa8cfb4d52902170a0xxxxxxxx  # 热词ID(可选)
     # language_hints: ["zh", "en"]  # 指定语言(可选)，支持zh、en、ja、yue、ko、de、fr、ru
-    output_dir: tmp/  
+    output_dir: tmp/
 VAD:
   SileroVAD:
     type: silero
     threshold: 0.5
     threshold_low: 0.3
     model_dir: models/snakers4_silero-vad
-    min_silence_duration_ms: 200  # 如果说话停顿比较长，可以把这个值设置大一些
+    min_silence_duration_ms: 200 # 如果说话停顿比较长，可以把这个值设置大一些
 
 LLM:
   # 所有openai类型均可以修改超参，以AliLLM为例
@@ -579,10 +578,10 @@ LLM:
     base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
     model_name: qwen-turbo
     api_key: 你的deepseek web key
-    temperature: 0.7  # 温度值
-    max_tokens: 500   # 最大生成token数
+    temperature: 0.7 # 温度值
+    max_tokens: 500 # 最大生成token数
     top_p: 1
-    frequency_penalty: 0  # 频率惩罚
+    frequency_penalty: 0 # 频率惩罚
   AliAppLLM:
     # 定义LLM API类型
     type: AliBL
@@ -619,12 +618,12 @@ LLM:
     # 可在这里找到你的api key https://bigmodel.cn/usercenter/proj-mgmt/apikeys
     model_name: glm-4-flash
     url: https://open.bigmodel.cn/api/paas/v4/
-    api_key: 你的chat-glm web key
+    api_key: 400fbb7298bf46c7b0e9fe02f02ec318.hVUPJ5MQ1Jyj2yRz
   OllamaLLM:
     # 定义LLM API类型
     type: ollama
     model_name: qwen2.5 #  使用的模型名称，需要预先使用ollama pull下载
-    base_url: http://localhost:11434  # Ollama服务地址
+    base_url: http://localhost:11434 # Ollama服务地址
   DifyLLM:
     # 定义LLM API类型
     type: dify
@@ -644,7 +643,7 @@ LLM:
     # 若部署地无法访问接口，需要开启科学上网
     api_key: 你的gemini web key
     model_name: "gemini-2.0-flash"
-    http_proxy: ""  #"http://127.0.0.1:10808"
+    http_proxy: "" #"http://127.0.0.1:10808"
     https_proxy: "" #http://127.0.0.1:10808"
   CozeLLM:
     # 定义LLM API类型
@@ -693,21 +692,21 @@ LLM:
     # 定义LLM API类型
     type: xinference
     # Xinference服务地址和模型名称
-    model_name: qwen2.5:72b-AWQ  # 使用的模型名称，需要预先在Xinference启动对应模型
-    base_url: http://localhost:9997  # Xinference服务地址
+    model_name: qwen2.5:72b-AWQ # 使用的模型名称，需要预先在Xinference启动对应模型
+    base_url: http://localhost:9997 # Xinference服务地址
   XinferenceSmallLLM:
     # 定义轻量级LLM API类型，用于意图识别
     type: xinference
     # Xinference服务地址和模型名称
-    model_name: qwen2.5:3b-AWQ  # 使用的小模型名称，用于意图识别
-    base_url: http://localhost:9997  # Xinference服务地址
+    model_name: qwen2.5:3b-AWQ # 使用的小模型名称，用于意图识别
+    base_url: http://localhost:9997 # Xinference服务地址
 # VLLM配置（视觉语言大模型）
 VLLM:
   ChatGLMVLLM:
     type: openai
     # glm-4v-flash是智谱免费AI的视觉模型，需要先在智谱AI平台创建API密钥并获取api_key
     # 可在这里找到你的api key https://bigmodel.cn/usercenter/proj-mgmt/apikeys
-    model_name: glm-4v-flash  # 智谱AI的视觉模型
+    model_name: glm-4v-flash # 智谱AI的视觉模型
     url: https://open.bigmodel.cn/api/paas/v4/
     api_key: 你的api_key
   QwenVLVLLM:
@@ -769,8 +768,8 @@ TTS:
     # 相关参数文档：https://www.volcengine.com/docs/6561/1329505
     # 音频输出配置（audio_params）- 用户可自定义添加火山引擎支持的任何音频参数
     audio_params:
-      speech_rate: 0  # 语速(-50~100)
-      loudness_rate: 0  # 音量(-50~100)
+      speech_rate: 0 # 语速(-50~100)
+      loudness_rate: 0 # 音量(-50~100)
       # 多情感音色参数，注意：当前仅部分音色支持设置情感。
       # 相关音色列表：https://www.volcengine.com/docs/6561/1257544
       # emotion: "neutral"  # 情感类型（仅部分音色支持）：neutral、happy、sad、angry、fearful、disgusted、surprised
@@ -778,7 +777,7 @@ TTS:
     # 高级文本处理配置（additions）- 用户可自定义添加火山引擎支持的任何高级参数
     additions:
       post_process:
-        pitch: 0  # 音高(-12~12)
+        pitch: 0 # 音高(-12~12)
       # aigc_metadata: {}  # AIGC元数据配置
       # cache_config: {}  # 缓存配置
     # 混音控制配置（mix_speaker）- 多音色混合（仅 TTS 1.0）
@@ -828,8 +827,11 @@ TTS:
     output_dir: tmp/
     response_format: wav
     reference_id: null
-    reference_audio: ["config/assets/wakeup_words.wav",]
-    reference_text: ["哈啰啊，我是小智啦，声音好听的台湾女孩一枚，超开心认识你耶，最近在忙啥，别忘了给我来点有趣的料哦，我超爱听八卦的啦",]
+    reference_audio: ["config/assets/wakeup_words.wav"]
+    reference_text:
+      [
+        "哈啰啊，我是小智啦，声音好听的台湾女孩一枚，超开心认识你耶，最近在忙啥，别忘了给我来点有趣的料哦，我超爱听八卦的啦",
+      ]
     normalize: true
     max_new_tokens: 1024
     chunk_length: 200
@@ -888,7 +890,7 @@ TTS:
     sample_steps: 32
     if_sr: false
   MinimaxTTSHTTPStream:
-  # Minimax流式语音合成服务
+    # Minimax流式语音合成服务
     type: minimax_httpstream
     output_dir: tmp/
     group_id: 你的minimax平台groupID
@@ -950,7 +952,7 @@ TTS:
     output_dir: tmp/
     appkey: 你的阿里云智能语音交互服务项目Appkey
     token: 你的阿里云智能语音交互服务AccessToken，临时的24小时，要长期用下方的access_key_id，access_key_secret
-    voice: longxiaochun 
+    voice: longxiaochun
     access_key_id: 你的阿里云账号access_key_id
     access_key_secret: 你的阿里云账号access_key_secret
     # 截至2025年7月21日大模型音色只有北京节点采用，其他节点暂不支持
@@ -1069,11 +1071,11 @@ TTS:
     #流式传输请参考 https://github.com/PaddlePaddle/PaddleSpeech/wiki/PaddleSpeech-Server-WebSocket-API
     type: paddle_speech
     protocol: websocket # protocol choices = ['websocket', 'http']
-    url: ws://127.0.0.1:8092/paddlespeech/tts/streaming  # TTS 服务的 URL 地址，指向本地服务器 [websocket默认ws://127.0.0.1:8092/paddlespeech/tts/streaming，http默认http://127.0.0.1:8090/paddlespeech/tts]
-    spk_id: 0  # 发音人 ID，0 通常表示默认的发音人
-    speed: 1.0  # 语速，1.0 表示正常语速，>1 表示加快，<1 表示减慢
-    volume: 1.0  # 音量，1.0 表示正常音量，>1 表示增大，<1 表示减小
-    save_path:   # 保存路径
+    url: ws://127.0.0.1:8092/paddlespeech/tts/streaming # TTS 服务的 URL 地址，指向本地服务器 [websocket默认ws://127.0.0.1:8092/paddlespeech/tts/streaming，http默认http://127.0.0.1:8090/paddlespeech/tts]
+    spk_id: 0 # 发音人 ID，0 通常表示默认的发音人
+    speed: 1.0 # 语速，1.0 表示正常语速，>1 表示加快，<1 表示减慢
+    volume: 1.0 # 音量，1.0 表示正常音量，>1 表示增大，<1 表示减小
+    save_path: # 保存路径
   IndexStreamTTS:
     # 基于Index-TTS-vLLM项目的TTS接口服务
     # 参照教程：https://github.com/Ksuriuri/index-tts-vllm/blob/master/README.md

@@ -29,6 +29,18 @@ def get_local_ip():
         return "127.0.0.1"
 
 
+def get_server_ip(config: dict) -> str:
+    """Prefer configured server.ip when available, fallback to detected local IP."""
+    try:
+        server_config = config.get("server", {})
+        configured_ip = str(server_config.get("ip", "")).strip()
+        if configured_ip and configured_ip not in ("0.0.0.0", "::", "*"):
+            return configured_ip
+    except Exception:
+        pass
+    return get_local_ip()
+
+
 def is_private_ip(ip_addr):
     """
     Check if an IP address is a private IP address (compatible with IPv4 and IPv6).
@@ -531,7 +543,7 @@ def get_vision_url(config: dict) -> str:
     server_config = config["server"]
     vision_explain = server_config.get("vision_explain", "")
     if "你的" in vision_explain:
-        local_ip = get_local_ip()
+        local_ip = get_server_ip(config)
         port = int(server_config.get("http_port", 8003))
         vision_explain = f"http://{local_ip}:{port}/mcp/vision/explain"
     return vision_explain

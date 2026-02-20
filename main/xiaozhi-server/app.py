@@ -5,10 +5,14 @@ import asyncio
 from aioconsole import ainput
 from config.settings import load_config
 from config.logger import setup_logging
-from core.utils.util import get_local_ip, validate_mcp_endpoint
+from core.utils.util import (
+    check_ffmpeg_installed,
+    get_server_ip,
+    get_vision_url,
+    validate_mcp_endpoint,
+)
 from core.http_server import SimpleHttpServer
 from core.websocket_server import WebSocketServer
-from core.utils.util import check_ffmpeg_installed
 from core.utils.gc_manager import get_gc_manager
 
 TAG = __name__
@@ -76,17 +80,18 @@ async def main():
     ota_task = asyncio.create_task(ota_server.start())
 
     read_config_from_api = config.get("read_config_from_api", False)
-    port = int(config["server"].get("http_port", 8003))
+    server_config = config.get("server", {})
+    bind_ip = get_server_ip(config)
+    http_port = int(server_config.get("http_port", 8003))
     if not read_config_from_api:
         logger.bind(tag=TAG).info(
             "OTA接口是\t\thttp://{}:{}/xiaozhi/ota/",
-            get_local_ip(),
-            port,
+            bind_ip,
+            http_port,
         )
     logger.bind(tag=TAG).info(
-        "视觉分析接口是\thttp://{}:{}/mcp/vision/explain",
-        get_local_ip(),
-        port,
+        "视觉分析接口是\t{}",
+        get_vision_url(config),
     )
     mcp_endpoint = config.get("mcp_endpoint", None)
     if mcp_endpoint is not None and "你" not in mcp_endpoint:
@@ -102,14 +107,15 @@ async def main():
 
     # 获取WebSocket配置，使用安全的默认值
     websocket_port = 8000
-    server_config = config.get("server", {})
     if isinstance(server_config, dict):
         websocket_port = int(server_config.get("port", 8000))
+    websocket_url = server_config.get("websocket", "")
+    if not websocket_url:
+        websocket_url = f"ws://{bind_ip}:{websocket_port}/xiaozhi/v1/"
 
     logger.bind(tag=TAG).info(
-        "Websocket地址是\tws://{}:{}/xiaozhi/v1/",
-        get_local_ip(),
-        websocket_port,
+        "Websocket地址是\t{}",
+        websocket_url,
     )
 
     logger.bind(tag=TAG).info(
